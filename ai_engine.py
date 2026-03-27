@@ -1,6 +1,7 @@
 import requests
+import os
 
-API_KEY = "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"
+API_KEY = os.getenv("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")
 
 def call_ai(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -11,12 +12,15 @@ def call_ai(prompt):
     }
 
     data = {
-        "model": "openai/gpt-3.5-turbo",
+        "model": "openai/gpt-3.5-turbo-0125",
         "messages": [{"role": "user", "content": prompt}]
     }
 
     response = requests.post(url, headers=headers, json=data)
-    return response.json()["choices"][0]["message"]["content"]
+    res_json=response.json()
+    if "choices" not in res_json:
+        return f"API ERROR: {res_json}"
+    return response.json["choices"][0]["message"]["content"]
 
 
 def generate_roadmap(topic):
