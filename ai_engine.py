@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 
-API_KEY = st.secrets("OPENROUTER_API_KEY")
+API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 def call_ai(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
