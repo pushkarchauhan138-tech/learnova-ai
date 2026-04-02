@@ -1,11 +1,10 @@
 import requests
+import os
 
-import streamlit as st
-
-API_KEY = st.secrets["GROQ_API_KEY"]
+API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 def call_ai(prompt):
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    url = "https://openrouter.ai/api/v1/chat/completions"
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",
@@ -13,7 +12,7 @@ def call_ai(prompt):
     }
 
     data = {
-        "model": "llama3-8b-8192",
+        "model": "openai/gpt-3.5-turbo",
         "messages": [{"role": "user", "content": prompt}]
     }
 
