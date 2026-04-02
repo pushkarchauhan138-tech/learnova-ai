@@ -7,7 +7,7 @@ def call_ai(prompt):
     headers = {
     "Authorization": f"Bearer {API_KEY}",
     "Content-Type": "application/json",
-    "HTTP-Referer": "https://learnova-ai-g7tb537n5ebipcvuphtydg.streamlit.app",
+    "HTTP-Referer": "https://your_app_name.streamlit.app",
     "X-Title": "Learnova"
 }
 
