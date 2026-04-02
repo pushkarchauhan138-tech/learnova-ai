@@ -21,7 +21,6 @@ if "selected_response" not in st.session_state:
 if "chat_history" not in st.session_state:
     st.session_state.chat_history=[]
 
-
 # ---------------- GLOBAL CSS FIX ----------------
 st.markdown("""
 <style>
@@ -124,9 +123,6 @@ def set_bg():
         <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
     </video>
     """, unsafe_allow_html=True)
-
-
-
 
 # ---------------- SIDEBAR ----------------
 menu = ["Login", "Signup"]
@@ -245,8 +241,6 @@ else:
         st.markdown(f"<div style='color:#222; font-size:16px; line-height:1.6;'>{st.session_state.selected_response}</div>", 
                     unsafe_allow_html=True)
 
-
-    
     # -------- CHATBOT --------
     st.divider()
     st.markdown("<h2 style='color:#985099;'>🤖 Ask Learnova</h2>",unsafe_allow_html=True)
