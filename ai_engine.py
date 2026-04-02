@@ -1,18 +1,19 @@
 import requests
+
 import streamlit as st
-API_KEY = st.secrets["OPENROUTER_API_KEY"]
+
+API_KEY = st.secrets["GROQ_API_KEY"]
+
 def call_ai(prompt):
-    url = "https://openrouter.ai/api/v1/chat/completions"
+    url = "https://api.groq.com/openai/v1/chat/completions"
 
     headers = {
-    "Authorization": f"Bearer {API_KEY}",
-    "Content-Type": "application/json",
-    "HTTP-Referer": "https://your_app_name.streamlit.app",
-    "X-Title": "Learnova"
-}
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
 
     data = {
-        "model": "mistralai/mistral-7b-instruct",
+        "model": "llama3-70b-8192",
         "messages": [{"role": "user", "content": prompt}]
     }
 
