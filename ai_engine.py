@@ -1,10 +1,10 @@
 import requests
 import os
 
-API_KEY = os.getenv("OPENROUTER_API_KEY")
+API_KEY = os.getenv("GROQ_API_KEY")
 
 def call_ai(prompt):
-    url = "https://openrouter.ai/api/v1/chat/completions"
+    url = "https://api.groq.com/openai/v1/chat/completions"
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",
@@ -12,7 +12,7 @@ def call_ai(prompt):
     }
 
     data = {
-        "model": "openai/gpt-3.5-turbo",
+        "model": "llama-8b-8192",
         "messages": [{"role": "user", "content": prompt}]
     }
 
