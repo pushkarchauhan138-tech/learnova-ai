@@ -1,12 +1,30 @@
-import google.generativeai as genai
+import requests
 import os
 
 # Configure your API key here or set as environment variable
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-genai.configure(api_key=GOOGLE_API_KEY)
+API_KEY = os.getenv("GROQ_API_KEY")
 
-model = genai.GenerativeModel("gemini-1.5-flash-001")
+def call_ai(prompt):
+    if not API_KEY:
+        return "GROQ_KEY not set"
+    url = "https://api.groq.com/openai/v1/chat/completions"
 
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "model": "llama-3.1-8b-instant",
+        "messages": [{"role": "user", "content": prompt}]
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    res = response.json()
+    if "choices" in res:
+        return res["choices"][0]["message"]["content"]
+    else:
+        return f"API Error: {res}"
 
 def generate_roadmap(topic: str) -> str:
     prompt = f"""
@@ -17,8 +35,7 @@ def generate_roadmap(topic: str) -> str:
     Use markdown formatting.
     """
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return call_ai(prompt)
     except Exception as e:
         return f"Error generating roadmap: {str(e)}"
 
@@ -35,8 +52,7 @@ def generate_explanation(topic: str) -> str:
     Use simple language. Keep it under 250 words. Use markdown formatting.
     """
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return call_ai(prompt)
     except Exception as e:
         return f"Error generating explanation: {str(e)}"
 
@@ -55,8 +71,7 @@ def generate_resources(topic: str) -> str:
     Keep it under 200 words.
     """
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return call_ai(prompt)
     except Exception as e:
         return f"Error generating resources: {str(e)}"
 
@@ -71,7 +86,6 @@ def chatbot_response(question: str) -> str:
     Use markdown formatting where helpful.
     """
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        return call_ai(prompt)
     except Exception as e:
         return f"Sorry, I couldn't respond right now. Error: {str(e)}"
