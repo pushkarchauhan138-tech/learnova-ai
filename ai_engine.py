@@ -2,11 +2,13 @@ import requests
 import os
 
 # Configure your API key here or set as environment variable
-API_KEY = os.getenv("GROQ_API_KEY")
+# API_KEY = os.getenv("GROQ_API_KEY")
 
 def call_ai(prompt):
     if not API_KEY:
-        return "GROQ_KEY not set"
+        API_KEY = os.getenv("GROQ_API_KEY")
+        if not API_KEY:
+            return "GROQ_API_KEY not set"
     url = "https://api.groq.com/openai/v1/chat/completions"
 
     headers = {
